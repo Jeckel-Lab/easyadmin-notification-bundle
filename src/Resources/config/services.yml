@@ -1,0 +1,16 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+
+    # makes classes in src/ available to be used as services
+    # this creates a service per class whose id is the fully-qualified class name
+    JeckelLab\NotificationBundle\:
+        resource: '../src/*'
+        exclude: '../src/{DependencyInjection,Entity,Event,Resources,ValueObject}'
+
+    # Attach event listener to bundle's events
+    JeckelLab\NotificationBundle\EventListener\NotificationEventListener:
+        tags:
+            - { name: kernel.event_listener, event: JeckelLab\NotificationBundle\Event\NotificationEvent, method: 'onNotificationEvent' }
