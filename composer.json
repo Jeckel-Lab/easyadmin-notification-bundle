@@ -7,7 +7,8 @@
         "symfony/dependency-injection": "^5.0",
         "doctrine/orm": "^2.7",
         "doctrine/doctrine-bundle": "^2.0",
-        "jeckel-lab/advanced-types": "^0.2.0"
+        "jeckel-lab/advanced-types": "^0.2.0",
+        "jeckel-lab/clock": "^0.1.0"
     },
     "require-dev": {
         "roave/security-advisories": "dev-master",
