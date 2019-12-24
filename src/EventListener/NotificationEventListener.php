@@ -11,7 +11,7 @@ use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
 use JeckelLab\NotificationBundle\Entity\Notification;
 use JeckelLab\NotificationBundle\Event\NotificationEventInterface;
-use JeckelLab\NotificationBundle\Service\NotificationService;
+use JeckelLab\NotificationBundle\Service\NotificationManager;
 use Symfony\Component\EventDispatcher\GenericEvent;
 
 /**
@@ -20,16 +20,16 @@ use Symfony\Component\EventDispatcher\GenericEvent;
  */
 class NotificationEventListener
 {
-    /** @var NotificationService */
-    protected $notificationService;
+    /** @var NotificationManager */
+    protected $notificationManager;
 
     /**
      * NotificationEventListener constructor.
-     * @param NotificationService $notificationService
+     * @param NotificationManager $notificationManager
      */
-    public function __construct(NotificationService $notificationService)
+    public function __construct(NotificationManager $notificationManager)
     {
-        $this->notificationService = $notificationService;
+        $this->notificationManager = $notificationManager;
     }
 
     /**
@@ -43,11 +43,10 @@ class NotificationEventListener
             return;
         }
 
-        $this->notificationService->addNotification(
-            $event->getLevel(),
-            $event->getMessage(),
-            $event->getSource(),
-            $event->getSendAt()
+        $this->notificationManager->save(
+            $this->notificationManager->createNotification($event->getMessage(), $event->getLevel())
+                ->setSource($event->getSource())
+                ->setSendAt($event->getSendAt())
         );
     }
 
@@ -62,6 +61,6 @@ class NotificationEventListener
         if (! $notification instanceof Notification) {
             return;
         }
-        $this->notificationService->markAsRead($notification);
+        $this->notificationManager->markAsRead($notification);
     }
 }

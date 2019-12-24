@@ -19,7 +19,7 @@ use JeckelLab\Clock\ClockInterface;
  * Class NotificationService
  * @package App\Bundle\NotificationBundle\Service
  */
-class NotificationService
+class NotificationManager
 {
     /** @var NotificationRepository */
     protected $repository;
@@ -39,29 +39,29 @@ class NotificationService
     }
 
     /**
-     * @param NotificationLevel      $level
      * @param string                 $message
-     * @param string|null            $source
-     * @param DateTimeInterface|null $sendAt
+     * @param NotificationLevel|null $level
+     * @return Notification
+     * @SuppressWarnings(PHPMD.StaticAccess)
+     */
+    public function createNotification(string $message, ?NotificationLevel $level): Notification
+    {
+        return (new Notification())
+            ->setMessage($message)
+            ->setLevel($level ?: NotificationLevel::INFO());
+    }
+
+    /**
+     * @param Notification $notification
      * @return Notification
      * @throws ORMException
      * @throws OptimisticLockException
      */
-    public function addNotification(
-        NotificationLevel $level,
-        string $message,
-        ?string $source = null,
-        ?DateTimeInterface $sendAt = null
-    ) : Notification {
-        $notification = (new Notification())
-            ->setLevel($level)
-            ->setMessage($message)
-            ->setSendAt($sendAt?: $this->clock->now());
-
-        if (null !== $source) {
-            $notification->setSource($source);
+    public function save(Notification $notification): Notification
+    {
+        if ($notification->getSendAt() === null) {
+            $notification->setSendAt($this->clock->now());
         }
-
         $this->repository->save($notification);
         return $notification;
     }
