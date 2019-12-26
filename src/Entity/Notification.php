@@ -14,8 +14,8 @@ class Notification
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
-     * @ORM\Column(type="string", length=36, name="notification_id")
-     * @var string|null
+     * @ORM\Column(type="integer", name="notification_id")
+     * @var int
      */
     private $notificationId;
 
@@ -50,17 +50,17 @@ class Notification
     private $read_at;
 
     /**
-     * @return string|null
+     * @return int|null
      */
-    public function getId(): ?string
+    public function getId(): ?int
     {
         return $this->notificationId;
     }
 
     /**
-     * @return string|null
+     * @return int|null
      */
-    public function getNotificationId(): ?string
+    public function getNotificationId(): ?int
     {
         return $this->getId();
     }
