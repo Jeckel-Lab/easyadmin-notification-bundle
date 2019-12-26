@@ -12,7 +12,6 @@ use Exception;
 use JeckelLab\NotificationBundle\Entity\Notification;
 use JeckelLab\NotificationBundle\Repository\NotificationRepository;
 use JeckelLab\NotificationBundle\ValueObject\NotificationLevel;
-use DateTimeInterface;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
 use JeckelLab\Clock\ClockInterface;

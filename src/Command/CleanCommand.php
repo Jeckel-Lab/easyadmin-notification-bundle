@@ -7,10 +7,6 @@ declare(strict_types=1);
 
 namespace JeckelLab\NotificationBundle\Command;
 
-use JeckelLab\NotificationBundle\Repository\NotificationRepository;
-use DateInterval;
-use DateTime;
-use Exception;
 use InvalidArgumentException;
 use JeckelLab\NotificationBundle\Service\NotificationManager;
 use JeckelLab\NotificationBundle\ValueObject\NotificationLevel;
@@ -19,13 +15,11 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 use Throwable;
 
 /**
  * Class CleanCommand
  * @package App\Bundle\NotificationBundle\Command
- * @SuppressWarnings(PHPMD.CouplingBetweenObjects)
  */
 class CleanCommand extends Command
 {
