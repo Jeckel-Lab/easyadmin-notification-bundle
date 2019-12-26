@@ -74,10 +74,10 @@ class Notification
     }
 
     /**
-     * @param DateTimeInterface $date
+     * @param DateTimeInterface|null $date
      * @return $this
      */
-    public function setSendAt(DateTimeInterface $date): self
+    public function setSendAt(?DateTimeInterface $date = null): self
     {
         $this->send_at = $date;
 
@@ -96,7 +96,7 @@ class Notification
      * @param string|null $source
      * @return $this
      */
-    public function setSource(?string $source): self
+    public function setSource(?string $source = null): self
     {
         $this->source = $source;
 
