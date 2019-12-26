@@ -16,7 +16,7 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\EventDispatcher\EventDispatcher;
+use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 use Throwable;
 
 /**
@@ -32,7 +32,7 @@ class CleanCommand extends Command
     /** @var NotificationManager */
     protected $notificationManager;
 
-    /** @var EventDispatcher */
+    /** @var EventDispatcherInterface */
     protected $eventDispatcher;
 
     /**
@@ -43,9 +43,9 @@ class CleanCommand extends Command
     /**
      * CleanCommand constructor.
      * @param NotificationManager $notificationManager
-     * @param EventDispatcher     $eventDispatcher
+     * @param EventDispatcherInterface     $eventDispatcher
      */
-    public function __construct(NotificationManager $notificationManager, EventDispatcher $eventDispatcher)
+    public function __construct(NotificationManager $notificationManager, EventDispatcherInterface $eventDispatcher)
     {
         parent::__construct();
         $this->notificationManager = $notificationManager;
