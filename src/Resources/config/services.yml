@@ -18,3 +18,7 @@ services:
     JeckelLab\NotificationBundle\Twig\:
         resource: '../../Twig'
         tags: [ 'twig.runtime', 'twig.extension' ]
+
+    JeckelLab\NotificationBundle\Command\:
+        resource: '../../Command'
+        tags: [ 'console.command' ]
