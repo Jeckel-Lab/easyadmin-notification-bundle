@@ -7,6 +7,8 @@ declare(strict_types=1);
 
 namespace JeckelLab\NotificationBundle\Service;
 
+use DateInterval;
+use Exception;
 use JeckelLab\NotificationBundle\Entity\Notification;
 use JeckelLab\NotificationBundle\Repository\NotificationRepository;
 use JeckelLab\NotificationBundle\ValueObject\NotificationLevel;
@@ -77,5 +79,21 @@ class NotificationManager
         $notification->markRead($this->clock->now());
         $this->repository->save($notification);
         return $notification;
+    }
+
+    /**
+     * @param int                    $nbDays
+     * @param NotificationLevel|null $level
+     * @return NotificationManager
+     * @throws Exception
+     */
+    public function removeObsolete(int $nbDays, ?NotificationLevel $level = null): self
+    {
+        $this->repository->deleteOlderThan(
+            $this->clock->now()
+                ->sub(new DateInterval(sprintf('P%sD', $nbDays))),
+            $level
+        );
+        return $this;
     }
 }

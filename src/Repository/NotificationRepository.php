@@ -10,6 +10,7 @@ use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\NoResultException;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
+use JeckelLab\NotificationBundle\ValueObject\NotificationLevel;
 
 /**
  * @method Notification|null find($id, $lockMode = null, $lockVersion = null)
@@ -55,15 +56,22 @@ class NotificationRepository extends ServiceEntityRepository
     }
 
     /**
-     * @param DateTimeInterface $dateTime
+     * @param DateTimeInterface      $dateTime
+     * @param NotificationLevel|null $level
      */
-    public function deleteOlderThan(DateTimeInterface $dateTime): void
+    public function deleteOlderThan(DateTimeInterface $dateTime, ?NotificationLevel $level): void
     {
-        $this->createQueryBuilder('n')
+        $queryBuilder = $this->createQueryBuilder('n')
             ->delete()
             ->where('n.send_at < :date')
-            ->setParameter('date', $dateTime)
-            ->getQuery()
+            ->setParameter('date', $dateTime);
+
+        if (null !== $level) {
+            $queryBuilder->andWhere('n.level = :level')
+                ->setParameter('level', $level);
+        }
+
+        $queryBuilder->getQuery()
             ->execute();
     }
 }

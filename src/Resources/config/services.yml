@@ -8,7 +8,7 @@ services:
     # this creates a service per class whose id is the fully-qualified class name
     JeckelLab\NotificationBundle\:
         resource: '../../*'
-        exclude: '../../{DependencyInjection,Entity,Event,Resources,ValueObject}'
+        exclude: '../../{DBAL,DependencyInjection,Entity,Event,Resources,ValueObject}'
 
     # Attach event listener to bundle's events
     JeckelLab\NotificationBundle\EventListener\NotificationEventListener:

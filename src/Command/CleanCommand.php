@@ -12,9 +12,12 @@ use DateInterval;
 use DateTime;
 use Exception;
 use InvalidArgumentException;
+use JeckelLab\NotificationBundle\Service\NotificationManager;
+use JeckelLab\NotificationBundle\ValueObject\NotificationLevel;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 use Throwable;
@@ -28,11 +31,10 @@ class CleanCommand extends Command
 {
     protected const NB_DAYS_ARG = 'nbdays';
 
-    /** @var EventDispatcherInterface */
-    protected $eventDispatcher;
+    protected const FILTER_LEVEL = 'level';
 
-    /** @var NotificationRepository */
-    protected $repository;
+    /** @var NotificationManager */
+    protected $notificationManager;
 
     /**
      * @var string
@@ -41,18 +43,17 @@ class CleanCommand extends Command
 
     /**
      * CleanCommand constructor.
-     * @param EventDispatcherInterface $eventDispatcher
-     * @param NotificationRepository   $repository
+     * @param NotificationManager $notificationManager
      */
-    public function __construct(EventDispatcherInterface $eventDispatcher, NotificationRepository $repository)
+    public function __construct(NotificationManager $notificationManager)
     {
-        $this->eventDispatcher = $eventDispatcher;
-        $this->repository = $repository;
         parent::__construct();
+        $this->notificationManager = $notificationManager;
     }
 
     /**
      * Configure
+     * @SuppressWarnings(PHPMD.StaticAccess)
      */
     protected function configure(): void
     {
@@ -61,7 +62,16 @@ class CleanCommand extends Command
                 self::NB_DAYS_ARG,
                 InputArgument::REQUIRED,
                 'Number of days from which older notifications should be deleted.'
-            )->setDescription('Delete old notification')
+            )->addOption(
+                self::FILTER_LEVEL,
+                null,
+                InputOption::VALUE_OPTIONAL,
+                sprintf(
+                    'Specify a filter to apply on notification level (%s)',
+                    implode(', ', NotificationLevel::getValues())
+                )
+            )
+            ->setDescription('Delete old notification')
         ;
     }
 
@@ -82,19 +92,18 @@ class CleanCommand extends Command
             );
         }
 
-        $this->process((int) $nbDays);
-        return 0;
-    }
+        $level = null;
+        if ($input->hasOption(self::FILTER_LEVEL)) {
+            $option = $input->getOption(self::FILTER_LEVEL);
+            if (! NotificationLevel::hasValue($option)) {
+                throw new InvalidArgumentException(
+                    'Invalid notification level filter provided'
+                );
+            }
+            $level = NotificationLevel::byValue($option);
+        }
 
-    /**
-     * @param int $nbDays
-     * @throws Exception
-     */
-    protected function process(int $nbDays): void
-    {
-        $this->repository->deleteOlderThan(
-            (new DateTime())
-                ->sub(new DateInterval(sprintf('P%sD', $nbDays)))
-        );
+        $this->notificationManager->removeObsolete((int) $nbDays, $level);
+        return 0;
     }
 }
