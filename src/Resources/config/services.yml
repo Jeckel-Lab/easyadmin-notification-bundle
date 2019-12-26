@@ -8,9 +8,13 @@ services:
     # this creates a service per class whose id is the fully-qualified class name
     JeckelLab\NotificationBundle\:
         resource: '../../*'
-        exclude: '../../{DBAL,DependencyInjection,Entity,Event,Resources,ValueObject}'
+        exclude: '../../{DependencyInjection,Entity,Event,Resources,ValueObject}'
 
     # Attach event listener to bundle's events
     JeckelLab\NotificationBundle\EventListener\NotificationEventListener:
         tags:
             - { name: kernel.event_listener, event: JeckelLab\NotificationBundle\Event\NotificationEvent, method: 'onNotificationEvent' }
+
+    JeckelLab\AdvancedTypes\Twig\:
+        resource: '../../Twig'
+        tags: [ 'twig.runtime', 'twig.extension' ]
