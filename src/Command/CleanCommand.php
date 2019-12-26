@@ -94,11 +94,11 @@ class CleanCommand extends Command
         }
 
         $level = null;
-        if ($input->hasOption(self::FILTER_LEVEL)) {
-            $option = $input->getOption(self::FILTER_LEVEL);
+        $option = $input->getOption(self::FILTER_LEVEL);
+        if ($option !== null) {
             if (! NotificationLevel::hasValue($option)) {
                 throw new InvalidArgumentException(
-                    'Invalid notification level filter provided'
+                    sprintf('Invalid notification level "%s" filter provided', $option)
                 );
             }
             $level = NotificationLevel::byValue($option);

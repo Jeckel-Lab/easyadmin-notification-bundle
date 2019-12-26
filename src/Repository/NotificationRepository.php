@@ -73,7 +73,8 @@ class NotificationRepository extends ServiceEntityRepository
                 ->setParameter('level', $level);
         }
 
-        $count = clone($queryBuilder)->select('COUNT(n.notificationId)')
+        $countQuery = clone($queryBuilder);
+        $count = $countQuery->select('COUNT(n.notificationId)')
             ->getQuery()
             ->getSingleScalarResult();
 
