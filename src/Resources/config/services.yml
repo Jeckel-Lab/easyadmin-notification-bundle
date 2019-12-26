@@ -15,6 +15,6 @@ services:
         tags:
             - { name: kernel.event_listener, event: JeckelLab\NotificationBundle\Event\NotificationEvent, method: 'onNotificationEvent' }
 
-    JeckelLab\AdvancedTypes\Twig\:
+    JeckelLab\NotificationBundle\Twig\:
         resource: '../../Twig'
         tags: [ 'twig.runtime', 'twig.extension' ]
