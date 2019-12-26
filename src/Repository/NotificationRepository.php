@@ -58,11 +58,13 @@ class NotificationRepository extends ServiceEntityRepository
     /**
      * @param DateTimeInterface      $dateTime
      * @param NotificationLevel|null $level
+     * @return int
+     * @throws NoResultException
+     * @throws NonUniqueResultException
      */
-    public function deleteOlderThan(DateTimeInterface $dateTime, ?NotificationLevel $level): void
+    public function deleteOlderThan(DateTimeInterface $dateTime, ?NotificationLevel $level): int
     {
         $queryBuilder = $this->createQueryBuilder('n')
-            ->delete()
             ->where('n.send_at < :date')
             ->setParameter('date', $dateTime);
 
@@ -71,7 +73,14 @@ class NotificationRepository extends ServiceEntityRepository
                 ->setParameter('level', $level);
         }
 
-        $queryBuilder->getQuery()
+        $count = clone($queryBuilder)->select('COUNT(n.notificationId)')
+            ->getQuery()
+            ->getSingleScalarResult();
+
+        $queryBuilder->delete()
+            ->getQuery()
             ->execute();
+
+        return $count;
     }
 }

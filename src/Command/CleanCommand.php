@@ -8,6 +8,7 @@ declare(strict_types=1);
 namespace JeckelLab\NotificationBundle\Command;
 
 use InvalidArgumentException;
+use JeckelLab\NotificationBundle\Event\NotificationEvent;
 use JeckelLab\NotificationBundle\Service\NotificationManager;
 use JeckelLab\NotificationBundle\ValueObject\NotificationLevel;
 use Symfony\Component\Console\Command\Command;
@@ -15,6 +16,7 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\EventDispatcher\EventDispatcher;
 use Throwable;
 
 /**
@@ -30,6 +32,9 @@ class CleanCommand extends Command
     /** @var NotificationManager */
     protected $notificationManager;
 
+    /** @var EventDispatcher */
+    protected $eventDispatcher;
+
     /**
      * @var string
      */
@@ -38,11 +43,13 @@ class CleanCommand extends Command
     /**
      * CleanCommand constructor.
      * @param NotificationManager $notificationManager
+     * @param EventDispatcher     $eventDispatcher
      */
-    public function __construct(NotificationManager $notificationManager)
+    public function __construct(NotificationManager $notificationManager, EventDispatcher $eventDispatcher)
     {
         parent::__construct();
         $this->notificationManager = $notificationManager;
+        $this->eventDispatcher = $eventDispatcher;
     }
 
     /**
@@ -97,7 +104,12 @@ class CleanCommand extends Command
             $level = NotificationLevel::byValue($option);
         }
 
-        $this->notificationManager->removeObsolete((int) $nbDays, $level);
+        $count = $this->notificationManager->removeObsolete((int) $nbDays, $level);
+        $this->eventDispatcher->dispatch(new NotificationEvent(
+            NotificationLevel::INFO(),
+            sprintf('%d notifications deleted', $count),
+            self::$defaultName
+        ));
         return 0;
     }
 }

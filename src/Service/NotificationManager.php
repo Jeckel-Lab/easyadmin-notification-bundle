@@ -102,16 +102,15 @@ class NotificationManager
     /**
      * @param int                    $nbDays
      * @param NotificationLevel|null $level
-     * @return NotificationManager
+     * @return int
      * @throws Exception
      */
-    public function removeObsolete(int $nbDays, ?NotificationLevel $level = null): self
+    public function removeObsolete(int $nbDays, ?NotificationLevel $level = null): int
     {
-        $this->repository->deleteOlderThan(
+        return $this->repository->deleteOlderThan(
             $this->clock->now()
                 ->sub(new DateInterval(sprintf('P%sD', $nbDays))),
             $level
         );
-        return $this;
     }
 }
