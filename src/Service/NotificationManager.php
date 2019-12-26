@@ -82,6 +82,25 @@ class NotificationManager
     }
 
     /**
+     * @param array $ids
+     * @return $this
+     * @throws ORMException
+     * @throws OptimisticLockException
+     */
+    public function batchMarkAsRead(array $ids): self
+    {
+        foreach ($ids as $id) {
+            /** @var Notification|null $notification */
+            $notification = $this->repository->find($id);
+            if (null === $notification) {
+                continue;
+            }
+            $this->markAsRead($notification);
+        }
+        return $this;
+    }
+
+    /**
      * @param int                    $nbDays
      * @param NotificationLevel|null $level
      * @return NotificationManager
