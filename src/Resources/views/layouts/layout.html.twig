@@ -1,0 +1,36 @@
+{% extends '@!EasyAdmin/default/layout.html.twig' %}
+
+{% block header_custom_menu %}
+    <div class="user user-menu-wrapper {{ _user_is_impersonated ? 'user-is-impersonated' }}" data-toggle="popover" data-placement="bottom" data-container=".user-menu-wrapper" data-content="{{ _user_menu_content|e('html_attr') }}" data-html="true">
+        {% if easyadmin_config('user.display_avatar') %}
+            {% set _avatar_image_path = easyadmin_read_property(app.user, easyadmin_config('user.avatar_property_path')) %}
+            {% if null == _avatar_image_path %}
+                <i class="fa fa-fw {{ app.user is not null ? 'fa-user-circle' : 'fa-user-times' }} user-avatar"></i>
+            {% else %}
+                <img class="user-avatar" src="{{ _avatar_image_path }}" />
+            {% endif %}
+
+        {% endif %}
+        {% if easyadmin_config('user.display_name') %}
+            <span class="user-name">{{ _user_name }} {{ notification_badge() }}</span>
+        {% endif %}
+    </div>
+{% endblock header_custom_menu %}
+
+{% block user_menu %}
+    {% include '@JeckelLabNotification/menu/user_menu_item.html.twig' %}
+    {% parent() %}
+{#    {% if _user_has_logout or _user_is_impersonated %}#}
+{#        <div class="popover-content-section user-menu">#}
+{#            <a href="{{ path('easyadmin', { entity: 'Notification', action: 'list' }) }}">Notifications {{ notification_badge() }}</a>#}
+{#        </div>#}
+{#        <div class="popover-content-section user-menu">#}
+{#            {% if _user_has_logout %}#}
+{#                <a class="user-action user-action-logout" href="{{ _logout_path }}">{{ 'user.signout'|trans(domain = 'EasyAdminBundle') }}</a>#}
+{#            {% endif %}#}
+{#            {% if _user_is_impersonated %}#}
+{#                <a class="user-action user-action-exit-impersonation" href="?_switch_user=_exit">{{ 'user.exit_impersonation'|trans(domain = 'EasyAdminBundle') }}</a>#}
+{#            {% endif %}#}
+{#        </div>#}
+{#    {% endif %}#}
+{% endblock user_menu %}

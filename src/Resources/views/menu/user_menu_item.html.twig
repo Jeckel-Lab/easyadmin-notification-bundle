@@ -1,0 +1,4 @@
+{% trans_default_domain 'JeckelLabNotification' %}
+<div class="popover-content-section user-menu">
+    <a href="{{ path('easyadmin', { entity: 'Notification', action: 'list' }) }}">{{ 'menu.notifications'|trans }} {{ notification_badge() }}</a>
+</div>
