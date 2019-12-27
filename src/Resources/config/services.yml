@@ -14,6 +14,7 @@ services:
     JeckelLab\NotificationBundle\EventListener\NotificationEventListener:
         tags:
             - { name: kernel.event_listener, event: JeckelLab\NotificationBundle\Event\NotificationEvent, method: 'onNotificationEvent' }
+            - { name: kernel.event_listener, event: easy_admin.post_show, method: 'onEasyAdminShow' }
 
     JeckelLab\NotificationBundle\Twig\:
         resource: '../../Twig'
