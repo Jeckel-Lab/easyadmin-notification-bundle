@@ -19,18 +19,5 @@
 
 {% block user_menu %}
     {% include '@JeckelLabNotification/menu/user_menu_item.html.twig' %}
-    {% parent() %}
-{#    {% if _user_has_logout or _user_is_impersonated %}#}
-{#        <div class="popover-content-section user-menu">#}
-{#            <a href="{{ path('easyadmin', { entity: 'Notification', action: 'list' }) }}">Notifications {{ notification_badge() }}</a>#}
-{#        </div>#}
-{#        <div class="popover-content-section user-menu">#}
-{#            {% if _user_has_logout %}#}
-{#                <a class="user-action user-action-logout" href="{{ _logout_path }}">{{ 'user.signout'|trans(domain = 'EasyAdminBundle') }}</a>#}
-{#            {% endif %}#}
-{#            {% if _user_is_impersonated %}#}
-{#                <a class="user-action user-action-exit-impersonation" href="?_switch_user=_exit">{{ 'user.exit_impersonation'|trans(domain = 'EasyAdminBundle') }}</a>#}
-{#            {% endif %}#}
-{#        </div>#}
-{#    {% endif %}#}
+    {{ parent() }}
 {% endblock user_menu %}

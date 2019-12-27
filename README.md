@@ -4,6 +4,9 @@ Symfony Notification Bundle
 ### Easy admin sample configuration:
 ```yaml
 easy_admin:
+    design:
+        templates:
+            layout: '@JeckelLabNotification/layouts/layout.html.twig'
     entities:
         Notification:
             translation_domain: 'JeckelLabNotification'
