@@ -11,3 +11,4 @@ action.list: Retour à la liste
 action.delete: Supprimer
 action.cancel: Annuler
 action.deselect: Supprimer la sélection
+action.continue: Continuer

@@ -11,3 +11,4 @@ action.list: Back to listing
 action.delete: Delete
 action.cancel: Cancel
 action.deselect: Deselect
+action.continue: Continue
