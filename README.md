@@ -1,5 +1,15 @@
-# [Work In Progress] notification-bundle
-Symfony Notification Bundle
+# EasyAdmin notification bundle
+
+Symfony Notification Bundle for EasyAdmin bundle
+
+### Doctrine additional config:
+
+```yaml
+doctrine:
+    dbal:
+        types:
+            notification_level: JeckelLab\NotificationBundle\DBAL\Types\NotificationLevelType
+```
 
 ### Easy admin sample configuration:
 ```yaml
