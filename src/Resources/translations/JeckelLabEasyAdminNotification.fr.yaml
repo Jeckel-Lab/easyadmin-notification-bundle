@@ -1,0 +1,11 @@
+notification.level: Type
+notification.source: Source
+notification.message: Message
+notification.send_at: Date d'envoie
+notification.read_at: Date de lecture
+
+action.search: Rechercher
+action.list: Retour à la liste
+action.delete: Supprimer
+action.cancel: Annuler
+action.deselect: Supprimer la sélection

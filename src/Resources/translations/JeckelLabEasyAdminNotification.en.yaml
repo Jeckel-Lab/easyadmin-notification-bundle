@@ -4,4 +4,8 @@ notification.message: Message
 notification.send_at: Date sent
 notification.read_at: Date Read
 
-
+action.search: Search
+action.list: Back to listing
+action.delete: Delete
+action.cancel: Cancel
+action.deselect: Deselect
