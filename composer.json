@@ -4,7 +4,7 @@
     "type": "symfony-bundle",
     "require": {
         "jeckel-lab/advanced-types": "^0.2",
-        "jeckel-lab/clock": "^0.1.0",
+        "jeckel-lab/clock": "^0.2.0",
         "easycorp/easyadmin-bundle": "^2.3"
     },
     "require-dev": {
