@@ -3,9 +3,11 @@
     "description": "Symfony's Easyadmin simple notification's bundle",
     "type": "symfony-bundle",
     "require": {
+        "php": "^7.1",
         "jeckel-lab/advanced-types": "^0.2",
         "jeckel-lab/clock": "^0.1.0",
-        "easycorp/easyadmin-bundle": "^2.3"
+        "easycorp/easyadmin-bundle": "^2.3",
+        "jeckel-lab/contract": "^0.1.4"
     },
     "require-dev": {
         "roave/security-advisories": "dev-master",
@@ -13,7 +15,8 @@
         "squizlabs/php_codesniffer": "^3.5",
         "phpmd/phpmd": "^2.8",
         "phpstan/phpstan": "^0.12.3",
-        "phpunit/phpunit": "^9.0"
+        "phpunit/phpunit": "^9.0",
+        "vimeo/psalm": "^3.12"
     },
     "license": "MIT",
     "authors": [

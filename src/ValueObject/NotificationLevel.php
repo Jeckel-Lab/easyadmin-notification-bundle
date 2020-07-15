@@ -8,6 +8,7 @@ declare(strict_types=1);
 namespace JeckelLab\NotificationBundle\ValueObject;
 
 use JeckelLab\AdvancedTypes\Enum\EnumAbstract;
+use JeckelLab\AdvancedTypes\ValueObject\ValueObject;
 
 /**
  * Class NotificationLevel
@@ -16,8 +17,9 @@ use JeckelLab\AdvancedTypes\Enum\EnumAbstract;
  * @method static NotificationLevel INFO();
  * @method static NotificationLevel WARNING();
  * @method static NotificationLevel DANGER();
+ * @psalm-immutable
  */
-class NotificationLevel extends EnumAbstract
+class NotificationLevel extends EnumAbstract implements ValueObject
 {
     public const SUCCESS = 'success';
     public const INFO    = 'info';
