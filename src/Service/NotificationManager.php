@@ -9,7 +9,7 @@ namespace JeckelLab\NotificationBundle\Service;
 
 use DateInterval;
 use Exception;
-use JeckelLab\Clock\Clock;
+use JeckelLab\Contract\Infrastructure\System\Clock;
 use JeckelLab\NotificationBundle\Entity\Notification;
 use JeckelLab\NotificationBundle\Repository\NotificationRepository;
 use JeckelLab\NotificationBundle\ValueObject\NotificationLevel;
