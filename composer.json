@@ -3,9 +3,11 @@
     "description": "Symfony's Easyadmin simple notification's bundle",
     "type": "symfony-bundle",
     "require": {
+        "php": "^7.1",
         "jeckel-lab/advanced-types": "^0.2",
         "jeckel-lab/clock": "^0.1.0",
-        "easycorp/easyadmin-bundle": "^2.3"
+        "easycorp/easyadmin-bundle": "^2.3",
+        "jeckel-lab/contract": "^0.1.4"
     },
     "require-dev": {
         "roave/security-advisories": "dev-master",

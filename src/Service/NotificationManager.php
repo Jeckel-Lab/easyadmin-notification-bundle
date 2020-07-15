@@ -9,12 +9,12 @@ namespace JeckelLab\NotificationBundle\Service;
 
 use DateInterval;
 use Exception;
+use JeckelLab\Clock\Clock;
 use JeckelLab\NotificationBundle\Entity\Notification;
 use JeckelLab\NotificationBundle\Repository\NotificationRepository;
 use JeckelLab\NotificationBundle\ValueObject\NotificationLevel;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
-use JeckelLab\Clock\ClockInterface;
 
 /**
  * Class NotificationService
@@ -25,15 +25,15 @@ class NotificationManager
     /** @var NotificationRepository */
     protected $repository;
 
-    /** @var ClockInterface */
+    /** @var Clock */
     protected $clock;
 
     /**
      * NotificationService constructor.
      * @param NotificationRepository $repository
-     * @param ClockInterface         $clock
+     * @param Clock         $clock
      */
-    public function __construct(NotificationRepository $repository, ClockInterface $clock)
+    public function __construct(NotificationRepository $repository, Clock $clock)
     {
         $this->repository = $repository;
         $this->clock = $clock;

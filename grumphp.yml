@@ -1,2 +1,2 @@
-parameters:
+grumphp:
     tasks: { phpcs: null, phpmd: null, phpstan: null, phpunit: null }
