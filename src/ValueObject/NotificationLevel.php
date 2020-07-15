@@ -8,7 +8,6 @@ declare(strict_types=1);
 namespace JeckelLab\NotificationBundle\ValueObject;
 
 use JeckelLab\AdvancedTypes\Enum\EnumAbstract;
-use JeckelLab\AdvancedTypes\ValueObject\ValueObject;
 
 /**
  * Class NotificationLevel
@@ -17,9 +16,11 @@ use JeckelLab\AdvancedTypes\ValueObject\ValueObject;
  * @method static NotificationLevel INFO();
  * @method static NotificationLevel WARNING();
  * @method static NotificationLevel DANGER();
+ * @method string getValue();
  * @psalm-immutable
+ * @extends EnumAbstract<string>
  */
-class NotificationLevel extends EnumAbstract implements ValueObject
+class NotificationLevel extends EnumAbstract
 {
     public const SUCCESS = 'success';
     public const INFO    = 'info';
@@ -36,5 +37,13 @@ class NotificationLevel extends EnumAbstract implements ValueObject
             return $value;
         }
         return parent::__toString();
+    }
+
+    /**
+     * @return string
+     */
+    public function toScalar(): string
+    {
+        return $this->getValue();
     }
 }
