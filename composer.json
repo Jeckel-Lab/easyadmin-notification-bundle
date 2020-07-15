@@ -5,7 +5,7 @@
     "require": {
         "php": "^7.1",
         "jeckel-lab/advanced-types": "^0.3",
-        "jeckel-lab/clock": "^0.1.0",
+        "jeckel-lab/clock": "^0.2.0",
         "easycorp/easyadmin-bundle": "^2.3",
         "jeckel-lab/contract": "^0.1.4"
     },
