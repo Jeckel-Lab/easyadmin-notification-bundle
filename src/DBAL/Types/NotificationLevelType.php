@@ -52,10 +52,10 @@ class NotificationLevelType extends Type
     /**
      * @param mixed            $value
      * @param AbstractPlatform $platform
-     * @return string
+     * @return mixed
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
-    public function convertToDatabaseValue($value, AbstractPlatform $platform): string
+    public function convertToDatabaseValue($value, AbstractPlatform $platform)
     {
         if ($value instanceof NotificationLevel) {
             $value = $value->getValue();
