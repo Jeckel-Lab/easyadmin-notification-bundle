@@ -16,7 +16,7 @@
         "phpmd/phpmd": "^2.8",
         "phpstan/phpstan": "^0.12.3",
         "phpunit/phpunit": "^9.0",
-        "vimeo/psalm": "^3.12"
+        "vimeo/psalm": "^4.8"
     },
     "license": "MIT",
     "authors": [
